@@ -1,6 +1,6 @@
 import Router from './routes/Router';
 import './globals.css';
-import Layout from './Layouts/Layout';
+import Layout from './layouts/Layout';
 
 function App() {
 	return (
