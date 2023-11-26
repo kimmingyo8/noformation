@@ -1,5 +1,5 @@
-const MakeFormPage = () => {
-	return <div>MakeFormPage</div>;
+const FormListPage = () => {
+	return <div>FormListPage</div>;
 };
 
-export default MakeFormPage;
+export default FormListPage;
