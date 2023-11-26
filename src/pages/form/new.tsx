@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Input from '../../components/common/Input';
 import FormBlock from '../../components/form/FormBlock';
 import FormBottom from '../../components/form/FormBottom';
+import { setDBAPI } from '../../api/form/makeForm';
 
 const NewFormPage = () => {
 	const [title, setTitle] = useState('');
@@ -9,7 +10,17 @@ const NewFormPage = () => {
 
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
+		name === 'form-title' && setTitle(value);
+		name === 'form-desc' && setDesc(value);
 	};
+
+	const fetchData = async () => {
+		await setDBAPI();
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	return (
 		<form>
