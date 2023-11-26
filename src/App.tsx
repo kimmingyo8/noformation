@@ -1,7 +1,8 @@
-import './styles/globals.css';
+import Router from './routes/Router';
+import './globals.css';
 
 function App() {
-	return <div>APP</div>;
+	return <Router />;
 }
 
 export default App;
