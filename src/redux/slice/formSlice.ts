@@ -31,10 +31,18 @@ const formSlice = createSlice({
 				currentBlock.blockTitle = blockTitle;
 			}
 		},
+
+		SET_BLOCK_TYPE: (state, action) => {
+			const { id, type } = action.payload;
+			const currentBlock = state.find((item) => item.id === id);
+			if (currentBlock) {
+				currentBlock.type = type;
+			}
+		},
 	},
 });
 
-export const { ADD_BLOCK, SET_BLOCK_TITLE } = formSlice.actions;
+export const { ADD_BLOCK, SET_BLOCK_TITLE, SET_BLOCK_TYPE } = formSlice.actions;
 
 export const selectForm = (state: RootState) => state.form;
 export default formSlice.reducer;
