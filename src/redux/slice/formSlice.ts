@@ -21,6 +21,22 @@ const formSlice = createSlice({
 			state.push(newBlock);
 		},
 
+		DELETE_BLOCK: (state, action) => {
+			const id = action.payload;
+			const index = state.findIndex((block) => block.id === id);
+			state.length > 1 && state.splice(index, 1);
+		},
+
+		COPY_BLOCK: (state, action) => {
+			const id = action.payload;
+			const currentBlock = state.find((block) => block.id === id);
+			if (currentBlock) {
+				const newBlock = { ...currentBlock };
+				newBlock.id = state.length;
+				state.splice(currentBlock.id + 1, 0, newBlock);
+			}
+		},
+
 		SET_BLOCK_TITLE: (
 			state,
 			action: { payload: { id: number; blockTitle: string } }
@@ -38,6 +54,12 @@ const formSlice = createSlice({
 			if (currentBlock) {
 				currentBlock.type = type;
 			}
+		},
+
+		SET_REQUIRED: (state, action) => {
+			const { id, isRequired } = action.payload;
+			const currentBlock = state.find((block) => block.id === id);
+			currentBlock && (currentBlock.isRequired = isRequired);
 		},
 
 		ADD_OPTION: (state, action) => {
@@ -63,8 +85,11 @@ const formSlice = createSlice({
 
 export const {
 	ADD_BLOCK,
+	DELETE_BLOCK,
+	COPY_BLOCK,
 	SET_BLOCK_TITLE,
 	SET_BLOCK_TYPE,
+	SET_REQUIRED,
 	ADD_OPTION,
 	SET_OPTIONS_CONTENT,
 } = formSlice.actions;

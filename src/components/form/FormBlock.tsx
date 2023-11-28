@@ -97,7 +97,7 @@ const FormBlock = ({
 					</ul>
 				)}
 			</div>
-			<FormBlockBottom />
+			<FormBlockBottom blockId={id} />
 		</fieldset>
 	);
 };
