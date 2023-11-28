@@ -39,10 +39,35 @@ const formSlice = createSlice({
 				currentBlock.type = type;
 			}
 		},
+
+		ADD_OPTION: (state, action) => {
+			const { id, optionId } = action.payload;
+			const currentBlock = state.find((item) => item.id === id);
+			if (currentBlock && currentBlock.options) {
+				currentBlock.options.push({ id: optionId, content: '' });
+			}
+		},
+
+		SET_OPTIONS_CONTENT: (state, action) => {
+			const { id, optionId, optionContent } = action.payload;
+			const currentBlock = state.find((item) => item.id === id);
+			if (currentBlock && currentBlock.options) {
+				const optionIdx = currentBlock.options.findIndex(
+					(option) => option.id === optionId
+				);
+				currentBlock.options[optionIdx].content = optionContent;
+			}
+		},
 	},
 });
 
-export const { ADD_BLOCK, SET_BLOCK_TITLE, SET_BLOCK_TYPE } = formSlice.actions;
+export const {
+	ADD_BLOCK,
+	SET_BLOCK_TITLE,
+	SET_BLOCK_TYPE,
+	ADD_OPTION,
+	SET_OPTIONS_CONTENT,
+} = formSlice.actions;
 
 export const selectForm = (state: RootState) => state.form;
 export default formSlice.reducer;

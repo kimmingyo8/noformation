@@ -3,9 +3,14 @@ import { IoIosRadioButtonOff, IoMdCheckboxOutline } from 'react-icons/io';
 import Select from '../common/Select';
 import FormBlockBottom from './FormBlockBottom';
 import { BlockType } from '../../types';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { SET_BLOCK_TITLE, SET_BLOCK_TYPE } from '../../redux/slice/formSlice';
+import {
+	ADD_OPTION,
+	SET_BLOCK_TITLE,
+	SET_BLOCK_TYPE,
+	SET_OPTIONS_CONTENT,
+} from '../../redux/slice/formSlice';
 import { typeDescriptions } from '../../constants/form';
 
 interface FormBlockProps {
@@ -15,6 +20,8 @@ interface FormBlockProps {
 const FormBlock = ({
 	blockData: { id, type, blockTitle, options },
 }: FormBlockProps) => {
+	const [optionId, setOptionId] = useState(1);
+
 	const dispatch = useDispatch();
 
 	const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +32,25 @@ const FormBlock = ({
 	const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.target;
 		dispatch(SET_BLOCK_TYPE({ id: id, type: value }));
+	};
+
+	const handleAddOption = () => {
+		dispatch(ADD_OPTION({ id: id, optionId: optionId }));
+		setOptionId(optionId + 1);
+	};
+
+	const handleChangeOption = (
+		e: ChangeEvent<HTMLInputElement>,
+		currentOptionId: number
+	) => {
+		const { value } = e.target;
+		dispatch(
+			SET_OPTIONS_CONTENT({
+				id: id,
+				optionId: currentOptionId,
+				optionContent: value,
+			})
+		);
 	};
 
 	return (
@@ -49,7 +75,12 @@ const FormBlock = ({
 							<li key={idx} className="flex items-center gap-6">
 								{type === 'check' && <IoMdCheckboxOutline size={22} />}
 								{type === 'radio' && <IoIosRadioButtonOff size={22} />}
-								<Input name="option" className="max-w-[500px]" />
+								<Input
+									name="option"
+									value={option.content}
+									className="max-w-[500px]"
+									onChange={(e) => handleChangeOption(e, option.id)}
+								/>
 							</li>
 						))}
 						<li className="flex items-center gap-6">
@@ -58,6 +89,7 @@ const FormBlock = ({
 							<button
 								type="button"
 								className="border-b text-lime-700 border-b-lime-600"
+								onClick={handleAddOption}
 							>
 								옵션 추가
 							</button>
