@@ -15,8 +15,26 @@ const initialState: BlockType[] = [
 const formSlice = createSlice({
 	name: 'form',
 	initialState,
-	reducers: {},
+	reducers: {
+		ADD_BLOCK: (state, action) => {
+			const newBlock = action.payload;
+			state.push(newBlock);
+		},
+
+		SET_BLOCK_TITLE: (
+			state,
+			action: { payload: { id: number; blockTitle: string } }
+		) => {
+			const { id, blockTitle } = action.payload;
+			const currentBlock = state.find((item) => item.id === id);
+			if (currentBlock) {
+				currentBlock.blockTitle = blockTitle;
+			}
+		},
+	},
 });
+
+export const { ADD_BLOCK, SET_BLOCK_TITLE } = formSlice.actions;
 
 export const selectForm = (state: RootState) => state.form;
 export default formSlice.reducer;

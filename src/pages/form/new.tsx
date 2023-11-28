@@ -1,25 +1,30 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Input from '../../components/common/Input';
 import FormBlock from '../../components/form/FormBlock';
 import FormBottom from '../../components/form/FormBottom';
 import { setDBAPI } from '../../api/form/makeForm';
+import { useSelector } from 'react-redux';
+import { selectForm } from '../../redux/slice/formSlice';
+import { BlockType } from '../../types';
 
 const NewFormPage = () => {
 	const [title, setTitle] = useState('');
 	const [desc, setDesc] = useState('');
 
+	const blockDatas = useSelector(selectForm);
+	console.log(blockDatas);
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		name === 'form-title' && setTitle(value);
 		name === 'form-desc' && setDesc(value);
 	};
 
-	const fetchData = async () => {
+	const fetchSetting = async () => {
 		await setDBAPI();
 	};
 
 	useEffect(() => {
-		fetchData();
+		fetchSetting();
 	}, []);
 
 	return (
@@ -40,8 +45,9 @@ const NewFormPage = () => {
 				onChange={onInputChange}
 			/>
 			<section className="flex flex-col gap-10 mt-10 mb-28">
-				<FormBlock />
-				<FormBlock />
+				{blockDatas.map((blockData: BlockType, idx: number) => (
+					<FormBlock key={blockData.id} blockData={blockData} />
+				))}
 			</section>
 			<FormBottom />
 		</form>

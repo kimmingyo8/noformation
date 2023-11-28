@@ -2,8 +2,25 @@ import Input from '../common/Input';
 import { IoIosRadioButtonOff } from 'react-icons/io';
 import Select from '../common/Select';
 import FormBlockBottom from './FormBlockBottom';
+import { BlockType } from '../../types';
+import { ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { SET_BLOCK_TITLE } from '../../redux/slice/formSlice';
 
-const FormBlock = () => {
+interface FormBlockProps {
+	blockData: BlockType;
+}
+
+const FormBlock = ({
+	blockData: { id, type, blockTitle, options },
+}: FormBlockProps) => {
+	const dispatch = useDispatch();
+
+	const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target;
+		dispatch(SET_BLOCK_TITLE({ id: id, blockTitle: value }));
+	};
+
 	return (
 		<fieldset className="w-full p-6 border shadow-xl border-slate-200 rounded-2xl">
 			<div>
@@ -11,6 +28,8 @@ const FormBlock = () => {
 					name="form-block-title"
 					placeholder="문항 제목을 입력해주세요."
 					className="pb-2 text-lg"
+					value={blockTitle}
+					onChange={handleTitleChange}
 				/>
 				<div className="flex items-center justify-between mt-3">
 					<p className="text-sm text-gray-500 bor">

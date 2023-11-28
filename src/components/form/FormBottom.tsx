@@ -1,9 +1,28 @@
 import { BsPlusCircle } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { ADD_BLOCK } from '../../redux/slice/formSlice';
+
+const newBlockData = (newId: number) => ({
+	id: newId,
+	type: 'short',
+	blockTitle: '',
+	isRequired: false,
+	options: [{ id: 0, content: '' }],
+});
 
 const FormBottom = () => {
+	const dispatch = useDispatch();
+	const [blockId, setBlockId] = useState(1);
+
+	const handleAddBlock = () => {
+		dispatch(ADD_BLOCK(newBlockData(blockId)));
+		setBlockId(blockId + 1);
+	};
+
 	return (
 		<div className="mt-6 py-3 px-10 w-[50%] fixed bottom-0 left-[40%] flex items-center justify-between gap-x-6 bg-white shadow-xl shadow-lime-600 border-t border-lime-500 rounded-t-2xl">
-			<button type="button">
+			<button type="button" onClick={handleAddBlock}>
 				<BsPlusCircle
 					size={28}
 					className="rounded-[50%] fill-lime-900 bg-lime-300 hover:bg-lime-200"
