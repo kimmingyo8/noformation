@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Input from '../../components/common/Input';
 import FormBlock from '../../components/form/FormBlock';
 import FormBottom from '../../components/form/FormBottom';
-import { setDBAPI } from '../../api/form/makeForm';
+import { MakeFormAPI, setDBAPI } from '../../api/form/makeForm';
 import { useSelector } from 'react-redux';
 import { selectForm } from '../../redux/slice/formSlice';
 import { BlockType } from '../../types';
@@ -17,6 +17,15 @@ const NewFormPage = () => {
 		const { name, value } = e.target;
 		name === 'form-title' && setTitle(value);
 		name === 'form-desc' && setDesc(value);
+	};
+
+	const handleSaveForm = async (e: React.FormEvent) => {
+		e.preventDefault();
+		const pageId = await MakeFormAPI({
+			title: title,
+			desc: desc,
+			blockDatas: blockDatas,
+		});
 	};
 
 	const fetchSetting = async () => {
@@ -49,7 +58,7 @@ const NewFormPage = () => {
 					<FormBlock key={blockData.id} blockData={blockData} />
 				))}
 			</section>
-			<FormBottom />
+			<FormBottom handleSaveForm={handleSaveForm} />
 		</form>
 	);
 };

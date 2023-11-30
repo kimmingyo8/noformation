@@ -55,48 +55,46 @@ const FormBlock = ({
 
 	return (
 		<fieldset className="w-full p-6 border shadow-xl border-slate-200 rounded-2xl">
-			<div>
-				<Input
-					name="form-block-title"
-					placeholder="문항 제목을 입력해주세요."
-					className="pb-2 text-lg"
-					value={blockTitle}
-					onChange={handleTitleChange}
-				/>
-				<div className="flex items-center justify-between mt-3">
-					<p className="text-sm text-gray-500 bor">{typeDescriptions[type]}</p>
-					<div className="mb-3 xl:w-96">
-						<Select handleSelectChange={handleSelectChange} />
-					</div>
+			<Input
+				name="form-block-title"
+				placeholder="문항 제목을 입력해주세요."
+				className="pb-2 text-lg"
+				value={blockTitle}
+				onChange={handleTitleChange}
+			/>
+			<div className="flex items-center justify-between mt-3">
+				<p className="text-sm text-gray-500 bor">{typeDescriptions[type]}</p>
+				<div className="mb-3 xl:w-96">
+					<Select handleSelectChange={handleSelectChange} />
 				</div>
-				{(type === 'check' || type === 'radio') && (
-					<ul className="flex flex-col gap-4 mt-5">
-						{options?.map((option, idx) => (
-							<li key={idx} className="flex items-center gap-6">
-								{type === 'check' && <IoMdCheckboxOutline size={22} />}
-								{type === 'radio' && <IoIosRadioButtonOff size={22} />}
-								<Input
-									name="option"
-									value={option.content}
-									className="max-w-[500px]"
-									onChange={(e) => handleChangeOption(e, option.id)}
-								/>
-							</li>
-						))}
-						<li className="flex items-center gap-6">
+			</div>
+			{(type === 'check' || type === 'radio') && (
+				<ul className="flex flex-col gap-4 my-5">
+					{options?.map((option, idx) => (
+						<li key={idx} className="flex items-center gap-6">
 							{type === 'check' && <IoMdCheckboxOutline size={22} />}
 							{type === 'radio' && <IoIosRadioButtonOff size={22} />}
-							<button
-								type="button"
-								className="border-b text-lime-700 border-b-lime-600"
-								onClick={handleAddOption}
-							>
-								옵션 추가
-							</button>
+							<Input
+								name="option"
+								value={option.content}
+								className="max-w-[500px]"
+								onChange={(e) => handleChangeOption(e, option.id)}
+							/>
 						</li>
-					</ul>
-				)}
-			</div>
+					))}
+					<li className="flex items-center gap-6">
+						{type === 'check' && <IoMdCheckboxOutline size={22} />}
+						{type === 'radio' && <IoIosRadioButtonOff size={22} />}
+						<button
+							type="button"
+							className="border-b text-lime-700 border-b-lime-600"
+							onClick={handleAddOption}
+						>
+							옵션 추가
+						</button>
+					</li>
+				</ul>
+			)}
 			<FormBlockBottom blockId={id} />
 		</fieldset>
 	);
