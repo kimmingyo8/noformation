@@ -12,7 +12,6 @@ const NewFormPage = () => {
 	const [desc, setDesc] = useState('');
 
 	const blockDatas = useSelector(selectForm);
-	console.log(blockDatas);
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		name === 'form-title' && setTitle(value);
@@ -25,9 +24,9 @@ const NewFormPage = () => {
 			title: title,
 			desc: desc,
 			blockDatas: blockDatas,
+			createdAt: new Date().toISOString(),
 		});
 	};
-
 	const fetchSetting = async () => {
 		await setDBAPI();
 	};
@@ -55,7 +54,7 @@ const NewFormPage = () => {
 			/>
 			<section className="flex flex-col gap-10 mt-10 mb-28">
 				{blockDatas.map((blockData: BlockType, idx: number) => (
-					<FormBlock key={blockData.id} blockData={blockData} />
+					<FormBlock key={idx} blockData={blockData} />
 				))}
 			</section>
 			<FormBottom handleSaveForm={handleSaveForm} />

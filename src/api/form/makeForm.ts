@@ -5,6 +5,7 @@ interface MakeFormAPIProps {
 	title: string;
 	desc: string;
 	blockDatas: BlockType[];
+	createdAt: string;
 }
 
 export const setDBAPI = async () => {
@@ -24,6 +25,7 @@ export const setDBAPI = async () => {
 						title: {},
 					},
 					description: { rich_text: {} },
+					createdAt: { date: {} },
 				},
 			}
 		);
@@ -37,8 +39,8 @@ export const MakeFormAPI = async ({
 	title,
 	desc,
 	blockDatas,
+	createdAt,
 }: MakeFormAPIProps) => {
-	console.log(blockDatas);
 	try {
 		const res = await notionPageURL.post('', {
 			parent: {
@@ -70,6 +72,12 @@ export const MakeFormAPI = async ({
 							href: null,
 						},
 					],
+				},
+				createdAt: {
+					date: {
+						start: createdAt,
+						end: null,
+					},
 				},
 			},
 			children: [
