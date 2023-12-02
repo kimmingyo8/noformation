@@ -74,7 +74,7 @@ const FormBlock = ({
 			<div className="flex items-center justify-between mt-3">
 				<p className="text-sm text-gray-500 bor">{typeDescriptions[type]}</p>
 				<div className="mb-3 xl:w-96">
-					<Select handleSelectChange={handleSelectChange} />
+					<Select type={type} handleSelectChange={handleSelectChange} />
 				</div>
 			</div>
 			{(type === 'check' || type === 'radio') && (

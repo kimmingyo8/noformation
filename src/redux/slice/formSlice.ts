@@ -53,6 +53,8 @@ const formSlice = createSlice({
 			const currentBlock = state.find((item) => item.id === id);
 			if (currentBlock) {
 				currentBlock.type = type;
+				// if (type === 'short' || type === 'long')
+				// 	currentBlock.options = [{ id: 0, content: '' }];
 			}
 		},
 
