@@ -52,6 +52,7 @@ const NewFormPage = () => {
 				className="p-3 mt-1 text-sm text-gray-600 "
 				onChange={onInputChange}
 			/>
+			{/* 설문 블록 리스트 */}
 			<section className="flex flex-col gap-10 mt-10 mb-28">
 				{blockDatas.map((blockData: BlockType, idx: number) => (
 					<FormBlock key={idx} blockData={blockData} />

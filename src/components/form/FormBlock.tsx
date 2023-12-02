@@ -1,5 +1,9 @@
 import Input from '../common/Input';
-import { IoIosRadioButtonOff, IoMdCheckboxOutline } from 'react-icons/io';
+import {
+	IoIosRadioButtonOff,
+	IoMdCheckboxOutline,
+	IoMdClose,
+} from 'react-icons/io';
 import Select from '../common/Select';
 import FormBlockBottom from './FormBlockBottom';
 import { BlockType } from '../../types';
@@ -7,6 +11,7 @@ import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
 	ADD_OPTION,
+	DELETE_OPTION,
 	SET_BLOCK_TITLE,
 	SET_BLOCK_TYPE,
 	SET_OPTIONS_CONTENT,
@@ -53,6 +58,10 @@ const FormBlock = ({
 		);
 	};
 
+	const handleOptionDelete = () => {
+		dispatch(DELETE_OPTION({ id: id, optionId: optionId }));
+	};
+
 	return (
 		<fieldset className="w-full p-6 border shadow-xl border-slate-200 rounded-2xl">
 			<Input
@@ -80,6 +89,12 @@ const FormBlock = ({
 								className="max-w-[500px]"
 								onChange={(e) => handleChangeOption(e, option.id)}
 							/>
+							<button type="button" onClick={handleOptionDelete}>
+								<IoMdClose
+									className=" fill-lime-900 hover:fill-lime-700"
+									size={22}
+								/>
+							</button>
 						</li>
 					))}
 					<li className="flex items-center gap-6">

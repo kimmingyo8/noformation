@@ -70,6 +70,17 @@ const formSlice = createSlice({
 			}
 		},
 
+		DELETE_OPTION: (state, action) => {
+			const { id, optionId } = action.payload;
+			const currentBlock = state.find((item) => item.id === id);
+			if (currentBlock && currentBlock.options) {
+				const optionIdx = currentBlock.options.findIndex(
+					(option) => option.id === optionId
+				);
+				currentBlock.options.splice(optionIdx, 1);
+			}
+		},
+
 		SET_OPTIONS_CONTENT: (state, action) => {
 			const { id, optionId, optionContent } = action.payload;
 			const currentBlock = state.find((item) => item.id === id);
@@ -91,6 +102,7 @@ export const {
 	SET_BLOCK_TYPE,
 	SET_REQUIRED,
 	ADD_OPTION,
+	DELETE_OPTION,
 	SET_OPTIONS_CONTENT,
 } = formSlice.actions;
 
