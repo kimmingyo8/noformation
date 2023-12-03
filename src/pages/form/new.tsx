@@ -30,7 +30,7 @@ const NewFormPage = () => {
 			blockDatas: blockDatas,
 			createdAt: new Date().toISOString(),
 		});
-		navigate(`/answer/${pageId}`);
+		navigate(`/answer/${pageId}`, { state: { title, desc } });
 	};
 	const fetchSetting = async () => {
 		await setDBAPI();

@@ -72,9 +72,7 @@ const FormBlock = React.forwardRef<HTMLDivElement, FormBlockProps>(
 						onChange={handleTitleChange}
 					/>
 					<div className="flex items-center justify-between mt-3">
-						<p className="text-sm text-gray-500 bor">
-							{typeDescriptions[type]}
-						</p>
+						<p className="text-sm text-gray-500">{typeDescriptions[type]}</p>
 						<div className="mb-3 xl:w-96">
 							<Select type={type} handleSelectChange={handleSelectChange} />
 						</div>
