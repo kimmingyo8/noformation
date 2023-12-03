@@ -6,6 +6,7 @@ import { MakeFormAPI, setDBAPI } from '../../api/form/makeForm';
 import { useSelector } from 'react-redux';
 import { selectForm } from '../../redux/slice/formSlice';
 import { BlockType } from '../../types';
+import { useNavigate } from 'react-router-dom';
 
 const NewFormPage = () => {
 	const [title, setTitle] = useState('');
@@ -13,6 +14,7 @@ const NewFormPage = () => {
 
 	const blockDatas = useSelector(selectForm);
 	const blockRef = useRef<HTMLDivElement>(null);
+	const navigate = useNavigate();
 
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -28,6 +30,7 @@ const NewFormPage = () => {
 			blockDatas: blockDatas,
 			createdAt: new Date().toISOString(),
 		});
+		navigate(`/answer/${pageId}`);
 	};
 	const fetchSetting = async () => {
 		await setDBAPI();

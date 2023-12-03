@@ -14,3 +14,5 @@ const notionAuthInstance = (url: string) => {
 export const notionDatabaseURL = notionAuthInstance('databases');
 
 export const notionPageURL = notionAuthInstance('pages');
+
+export const notionBlockURL = notionAuthInstance('blocks');
