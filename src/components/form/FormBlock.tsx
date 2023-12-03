@@ -62,7 +62,7 @@ const FormBlock = React.forwardRef<HTMLDivElement, FormBlockProps>(
 		};
 
 		return (
-			<div ref={ref}>
+			<div ref={ref} id={`data-${id}`}>
 				<fieldset className="w-full p-6 border shadow-xl border-slate-200 rounded-2xl">
 					<Input
 						name="form-block-title"

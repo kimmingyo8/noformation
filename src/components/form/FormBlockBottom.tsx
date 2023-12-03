@@ -18,6 +18,12 @@ const FormBlockBottom = ({ blockId }: FormBlockBottomProps) => {
 
 	const handleCopyBlock = () => {
 		dispatch(COPY_BLOCK(blockId));
+		setTimeout(() => {
+			const element = document.getElementById(`data-${blockId}`);
+			if (element) {
+				element.scrollIntoView({ behavior: 'smooth' });
+			}
+		}, 100);
 	};
 
 	const handleDeleteBlock = () => {
