@@ -18,7 +18,11 @@ const formSlice = createSlice({
 	reducers: {
 		ADD_BLOCK: (state, action) => {
 			const newBlock = action.payload;
-			state.push(newBlock);
+			const updatedBlock = {
+				...newBlock,
+				id: state.length,
+			};
+			state.push(updatedBlock);
 		},
 
 		DELETE_BLOCK: (state, action) => {
@@ -29,11 +33,10 @@ const formSlice = createSlice({
 
 		COPY_BLOCK: (state, action) => {
 			const id = action.payload;
-			const currentBlock = state.find((block) => block.id === id);
-			if (currentBlock) {
-				const newBlock = { ...currentBlock };
-				newBlock.id = state.length;
-				state.splice(currentBlock.id + 1, 0, newBlock);
+			const currentBlockIndex = state.findIndex((block) => block.id === id);
+			if (currentBlockIndex !== -1) {
+				const newBlock = { ...state[currentBlockIndex], id: state.length };
+				state.splice(currentBlockIndex + 1, 0, newBlock);
 			}
 		},
 
