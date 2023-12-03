@@ -7,21 +7,19 @@ type FormBottomProps = {
 	handleSaveForm: (e: React.FormEvent) => Promise<void>;
 };
 
-const newBlockData = (newId: number) => ({
-	id: newId,
+const newBlockData = {
+	id: 0,
 	type: 'short',
 	blockTitle: '',
 	isRequired: false,
 	options: [{ id: 0, content: '' }],
-});
+};
 
 const FormBottom = ({ handleSaveForm }: FormBottomProps) => {
 	const dispatch = useDispatch();
-	const [blockId, setBlockId] = useState(1);
 
 	const handleAddBlock = () => {
-		dispatch(ADD_BLOCK(newBlockData(blockId)));
-		setBlockId(blockId + 1);
+		dispatch(ADD_BLOCK(newBlockData));
 	};
 
 	return (

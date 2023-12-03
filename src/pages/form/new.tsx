@@ -12,6 +12,8 @@ const NewFormPage = () => {
 	const [desc, setDesc] = useState('');
 
 	const blockDatas = useSelector(selectForm);
+	const blockRef = useRef<HTMLDivElement>(null);
+
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		name === 'form-title' && setTitle(value);
@@ -35,6 +37,12 @@ const NewFormPage = () => {
 		fetchSetting();
 	}, []);
 
+	useEffect(() => {
+		if (blockRef.current) {
+			blockRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [blockDatas.length]);
+
 	return (
 		<form>
 			{/* 설문지 타이틀 */}
@@ -55,9 +63,10 @@ const NewFormPage = () => {
 			{/* 설문 블록 리스트 */}
 			<section className="flex flex-col gap-10 mt-10 mb-28">
 				{blockDatas.map((blockData: BlockType, idx: number) => (
-					<FormBlock key={idx} blockData={blockData} />
+					<FormBlock ref={blockRef} key={idx} blockData={blockData} />
 				))}
 			</section>
+
 			<FormBottom handleSaveForm={handleSaveForm} />
 		</form>
 	);
