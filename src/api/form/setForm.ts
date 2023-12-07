@@ -1,7 +1,7 @@
 import { BlockType } from '../../types/index';
 import { notionDatabaseURL, notionPageURL } from '../notoinAuthInstance';
 
-interface MakeFormAPIProps {
+interface setFormAPIProps {
 	title: string;
 	desc: string;
 	blockDatas: BlockType[];
@@ -35,12 +35,12 @@ export const setDBAPI = async () => {
 	}
 };
 
-export const MakeFormAPI = async ({
+export const setFormAPI = async ({
 	title,
 	desc,
 	blockDatas,
 	createdAt,
-}: MakeFormAPIProps) => {
+}: setFormAPIProps) => {
 	try {
 		const res = await notionPageURL.post('', {
 			parent: {

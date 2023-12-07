@@ -11,11 +11,12 @@ const AnswerPage = () => {
 
 	const [formData, setFormData] = useState<BlockType[]>([]);
 	const { title, desc } = location.state || {};
+
 	const fetchFormData = async () => {
 		const data = await getFormDataAPI(id as string);
 		setFormData(data);
 	};
-	console.log(formData);
+
 	useEffect(() => {
 		fetchFormData();
 	}, []);

@@ -2,11 +2,12 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import Input from '../../components/common/Input';
 import FormBlock from '../../components/form/FormBlock';
 import FormBottom from '../../components/form/FormBottom';
-import { MakeFormAPI, setDBAPI } from '../../api/form/makeForm';
+import { setFormAPI, setDBAPI } from '../../api/form/setForm';
 import { useSelector } from 'react-redux';
 import { selectForm } from '../../redux/slice/formSlice';
 import { BlockType } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { setAnswerDBAPI } from '../../api/form/answer';
 
 const NewFormPage = () => {
 	const [title, setTitle] = useState('');
@@ -24,12 +25,13 @@ const NewFormPage = () => {
 
 	const handleSaveForm = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const pageId = await MakeFormAPI({
+		const pageId = await setFormAPI({
 			title: title,
 			desc: desc,
 			blockDatas: blockDatas,
 			createdAt: new Date().toISOString(),
 		});
+		await setAnswerDBAPI(pageId, blockDatas);
 		navigate(`/answer/${pageId}`, { state: { title, desc } });
 	};
 	const fetchSetting = async () => {
